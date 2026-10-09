@@ -21,3 +21,11 @@ With Kp = 10 and Kd = 0, P-only already reaches the step target, so Ki is not ne
 With Kp = 10 and Kd = 0, I predict that increasing Ki will not materially improve the already near-zero steady-state error for this zero-load step response. Instead, the accumulated error will continue contributing after the motor approaches the setpoint, so higher Ki should increase overshoot, oscillation, and possibly settling time.
 
 I predict Ki = 0 will be the cleanest response in this experiment. Ki = 0.5 may add a small overshoot, Ki = 2 may ring more, and Ki = 5 may have the most oscillation or may fail to settle within 10 seconds.
+## Experiment B: integral sweep observed
+
+The results supported the prediction. P-only control at Ki = 0 already had near-zero final error. Increasing Ki increased overshoot:
+- Ki = 0.5: 13.08% overshoot.
+- Ki = 2: 27.90% overshoot.
+- Ki = 5: 51.91% overshoot.
+
+For every Ki above zero, settling time was nan because the response was still outside the ±2% band at 10 seconds. This experiment shows that I action is not needed for the zero-load reference step, but it may be necessary later to reject a constant load disturbance.
