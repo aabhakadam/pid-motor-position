@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 
 from motor import Motor
 from pid import PID
+from metrics import step_metrics
 
 
 dt = 0.001
@@ -28,17 +29,23 @@ for kp in kp_values:
 
     for k in range(1, n):
         measurement = motor.theta
-        V = pid.update(setpoint, measurement, dt)
-        motor.step(V, dt)
+        voltage = pid.update(setpoint, measurement, dt)
+        motor.step(voltage, dt)
 
         t[k] = t[k - 1] + dt
         theta[k] = motor.theta
 
-    ax.plot(t, theta, label=f"Kp = {kp}")
+    metrics = step_metrics(t, theta, setpoint)
 
-    print(f"Kp = {kp}")
-    print("  Final position:", theta[-1])
-    print("  Final voltage:", V)
+    print(f"\nKp = {kp}")
+    print(f"  Rise time: {metrics['rise_time_s']:.4f} s")
+    print(f"  Overshoot: {metrics['overshoot_percent']:.2f} %")
+    print(f"  Settling time: {metrics['settling_time_s']:.4f} s")
+    print(f"  Steady-state error: {metrics['steady_state_error']:.6f} rad")
+    print(f"  Final position: {theta[-1]:.6f} rad")
+    print(f"  Final voltage: {voltage:.4f} V")
+
+    ax.plot(t, theta, label=f"Kp = {kp}")
 
 ax.axhline(setpoint, color="black", linestyle="--", label="Setpoint = 1 rad")
 ax.set_xlabel("Time (s)")
