@@ -19,7 +19,10 @@ class Motor:
         self.omega = 0.0
         self.i = 0.0
 
-    def step(self, V, dt):
+    def step(self, V, dt, voltage_limit=None):
+        if voltage_limit is not None:
+            V = max(-voltage_limit, min(voltage_limit, V))
+
         dtheta = self.omega
 
         domega = (
