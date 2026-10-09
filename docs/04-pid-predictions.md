@@ -29,3 +29,10 @@ The results supported the prediction. P-only control at Ki = 0 already had near-
 - Ki = 5: 51.91% overshoot.
 
 For every Ki above zero, settling time was nan because the response was still outside the ±2% band at 10 seconds. This experiment shows that I action is not needed for the zero-load reference step, but it may be necessary later to reject a constant load disturbance.
+## Constant-load comparison observed
+
+With load_torque = 0.01 N m:
+- P-only control (Kp = 10, Ki = 0) settled at 0.900000 rad, leaving a 0.100000 rad steady-state error.
+- PI control (Kp = 10, Ki = 2) reached 1.001303 rad, leaving only -0.001303 rad error after 20 seconds.
+
+This shows why integral action matters: it accumulates the persistent error caused by the constant load and supplies the voltage needed to reject that disturbance.
