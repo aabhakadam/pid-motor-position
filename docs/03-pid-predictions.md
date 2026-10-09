@@ -30,3 +30,9 @@ Kd = 0
 - Kp = 50: My prediction was correct. It reached the target quickly but overshot and oscillated before settling.
 - Kp = 150: My prediction was correct. The oscillations increased instead of decreasing, so the system was unstable and did not settle.
 - Best P-only value from this sweep: Kp = 10, because it reached the setpoint quickly with very little oscillation.
+## Predicted versus observed
+
+- Kp = 1: I predicted a slow, stable response without overshoot. Observed: correct; it reached about 0.63 rad after 10 s, so it was still approaching 1 rad.
+- Kp = 10: I predicted a faster response with little or no overshoot. Observed: mostly correct; it had about 9% overshoot and settled very close to 1 rad.
+- Kp = 50: I predicted a faster response with overshoot and oscillation. Observed: correct; it overshot by about 58% and rang around the setpoint.
+- Kp = 150: I predicted instability or strong oscillation. Observed: correct; its oscillations grew instead of decaying, so it did not settle.
