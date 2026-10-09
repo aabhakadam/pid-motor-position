@@ -16,3 +16,8 @@ The prediction was mostly correct. Increasing Kd reduced overshoot and ringing:
 For this ideal noise-free model, Kd = 20 gave the best response: no overshoot and the shortest settling time. My prediction that very high Kd might behave poorly was not supported within this tested range.
 ## Experiment B: I sweep
 With Kp = 10 and Kd = 0, P-only already reaches the step target, so Ki is not needed to remove a steady-state error in this no-load simulation. I predict increasing Ki will mostly add overshoot and ringing because the accumulated past error continues driving the motor after it reaches the target.
+## Experiment B: integral sweep prediction
+
+With Kp = 10 and Kd = 0, I predict that increasing Ki will not materially improve the already near-zero steady-state error for this zero-load step response. Instead, the accumulated error will continue contributing after the motor approaches the setpoint, so higher Ki should increase overshoot, oscillation, and possibly settling time.
+
+I predict Ki = 0 will be the cleanest response in this experiment. Ki = 0.5 may add a small overshoot, Ki = 2 may ring more, and Ki = 5 may have the most oscillation or may fail to settle within 10 seconds.
