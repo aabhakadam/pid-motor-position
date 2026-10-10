@@ -25,14 +25,19 @@ requested_voltage = np.zeros(n)
 applied_voltage = np.zeros(n)
 
 for k in range(1, n):
-    requested_voltage[k] = pid.update(setpoint, motor.theta, dt)
+    requested_voltage[k] = pid.update(
+    setpoint,
+    motor.theta,
+    dt,
+    output_limit=voltage_limit,
+)
 
     applied_voltage[k] = max(
         -voltage_limit,
         min(voltage_limit, requested_voltage[k]),
     )
 
-    motor.step(requested_voltage[k], dt, voltage_limit=voltage_limit)
+    motor.step(requested_voltage[k], dt)
 
     t[k] = t[k - 1] + dt
     theta[k] = motor.theta
