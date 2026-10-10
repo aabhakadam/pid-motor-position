@@ -19,3 +19,10 @@ I added conditional integration to the PID controller. When the output reaches t
 With the same 5 rad setpoint and +/-2 V limit, both requested voltage and applied voltage remained at +2 V. The earlier requested voltage growth to about 136 V disappeared.
 
 The motor was still below the setpoint after 20 seconds because the actuator limit restricted physical acceleration, but the controller no longer stored an unrealistic integral command.
+## Measurement-noise result
+
+I added Gaussian measurement noise with a standard deviation of 0.01 rad and compared P-only control with PD control using Kp = 50 and Kd = 20.
+
+The PD position response had very little overshoot, but its requested voltage fluctuated dramatically, reaching roughly +/-1100 V. The P-only voltage was much smoother.
+
+This happens because derivative action divides changes in the noisy measurement error by the small simulation timestep. The motor model filtered much of the high-frequency voltage noise, but a real motor driver would require voltage limits and derivative filtering.
